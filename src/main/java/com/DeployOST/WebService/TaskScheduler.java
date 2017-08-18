@@ -12,7 +12,8 @@ public class TaskScheduler {
 	private static ArrayList<SosTasks> sosTasks = new ArrayList<SosTasks>();
 	
 	public TaskScheduler() {
-	
+		listOfTasks = SQLCommunication.loadTasks();
+		sosTasks = SQLCommunication.loadSosTasks();
 	}
 	
 	

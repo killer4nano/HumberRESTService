@@ -60,6 +60,7 @@ public class EmailReader extends Thread{
 			                System.out.println("Mail Subject:- " + messages[i].getSubject());
 			                Tasks newTask = new Tasks (messages[i].getSubject(),getTextFromMessage(messages[i]));
 			                TaskScheduler.getTasks().add(newTask); 
+			                newTask.setId(SQLCommunication.newTask(newTask.getTaskName(), newTask.getTaskName()));
 			                messages[i].setFlag(Flags.Flag.SEEN, true);
 			            }
 			            TaskScheduler.newTask();

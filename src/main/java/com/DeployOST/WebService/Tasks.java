@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Tasks {
 
     private String name;
+    @JsonProperty("id")
+    private int id;
     private String description;
     private String tech;
 	@JsonProperty("notes")
@@ -23,6 +25,20 @@ public class Tasks {
         this.notes = "none";
         completed = false;
     }
+    
+    public Tasks (int id,String taskName, String taskDescription) {
+        name = taskName;
+        description = taskDescription;
+        tech = "none";
+        this.notes = "none";
+        completed = false;
+        this.id = id;
+    }
+    
+    public void setId(int id) {
+    	this.id = id;
+    }
+    
 
     public Tasks(boolean isSos,String name,String tech,boolean completed, String description,String notes) {
         this.sos = isSos;
