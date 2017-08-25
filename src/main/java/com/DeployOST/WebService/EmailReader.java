@@ -58,9 +58,9 @@ public class EmailReader extends Thread{
 			 
 			            for (int i = 0; i < messages.length; i++) {
 			                System.out.println("Mail Subject:- " + messages[i].getSubject());
-			                Tasks newTask = new Tasks (messages[i].getSubject(),getTextFromMessage(messages[i]));
+			                Tasks newTask = new Tasks (messages[i].getSubject(),getTextFromMessage(messages[i]).substring(1));
 			                TaskScheduler.getTasks().add(newTask); 
-			                newTask.setId(SQLCommunication.newTask(newTask.getTaskName(), newTask.getTaskName()));
+			                newTask.setId(SQLCommunication.newTask(newTask.getTaskName(), newTask.getTaskDescription()));
 			                messages[i].setFlag(Flags.Flag.SEEN, true);
 			            }
 			            TaskScheduler.newTask();
@@ -89,10 +89,6 @@ public class EmailReader extends Thread{
 	            if (bodyPart.isMimeType("text/plain")){
 	                result = result + " " + bodyPart.getContent();
 	                break;  //without break same text appears twice in my tests
-	            } else if (bodyPart.isMimeType("text/html")){
-	                String html = (String) bodyPart.getContent();
-	                result = result + " " + Jsoup.parse(html).text();
-
 	            }
 	        }
 	        return result;

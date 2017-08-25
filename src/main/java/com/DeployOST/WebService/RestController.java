@@ -20,6 +20,7 @@ public class RestController {
 	@RequestMapping("/sos/{id}/{job}/{desc}/{notes}") 
 	@ResponseBody
 	String sosTask(@PathVariable("id") int id,@PathVariable("job") String name,@PathVariable("desc") String desc, @PathVariable("notes") String notes){
+		desc = desc.replaceAll("-", "\r\n");
 		TaskScheduler.addSosTask(new SosTasks(name,desc,notes));
 		SQLCommunication.sosTask(id, notes);
 		TaskScheduler.newTask();
@@ -47,8 +48,10 @@ public class RestController {
 	@RequestMapping("/finish/{userid}/{id}/{job}/{desc}/{notes}")
 	@ResponseBody
 	String finishJob(@PathVariable("desc") String desc,@PathVariable("id") int id,@PathVariable("userid") int userId,@PathVariable("job") String jobName,@PathVariable("notes") String notes) {
+		desc = desc.replaceAll("-", "\r\n");
 		TaskScheduler.finishTask(jobName,notes);
 		SQLCommunication.finishTask(jobName, desc, notes, userId, id);
+		TaskScheduler.newTask();
 		return "done";
 	}
 	
@@ -58,12 +61,6 @@ public class RestController {
 		return SQLCommunication.getMyTask(id);
 	}
 	
-	@RequestMapping("/sos/{id}/{notes}")
-	@ResponseBody
-	String sosTask(@PathVariable("id") int id,@PathVariable("notes") String notes) {
-		SQLCommunication.sosTask(id,notes);
-		return "done";
-	}
 	
 	
 	@RequestMapping("/login/{user}/{password}")

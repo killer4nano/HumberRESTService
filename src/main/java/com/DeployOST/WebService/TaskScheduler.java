@@ -93,6 +93,7 @@ public class TaskScheduler {
 	public static void newTask() {
 		try {
 			PNHandler.sendPushNotification("Hello!");
+			//PNHandler.sendPushNotificationIOS("Hello!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
